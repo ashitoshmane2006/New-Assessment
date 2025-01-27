@@ -1,24 +1,23 @@
-const { setHeadlessWhen, setCommonPlugins } = require('@codeceptjs/configure');
-// turn on headless mode when running with HEADLESS=true environment variable
-// export HEADLESS=true && npx codeceptjs run
-setHeadlessWhen(process.env.HEADLESS);
-
-// enable all common plugins https://github.com/codeceptjs/configure#setcommonplugins
-setCommonPlugins();
-
-/** @type {CodeceptJS.MainConfig} */
 exports.config = {
-  tests: './test',
+  tests: './tests/*.test.js', // path to your test files
   output: './output',
   helpers: {
     Playwright: {
-      browser: 'chromium',
-      url: 'http://localhost',
-      show: true
-    }
+      url: 'http://localhost', // default URL
+      show: true, // set to false if you want to run tests headlessly
+      browser: 'chromium', // you can also use 'firefox' or 'webkit'
+      restart: false, // for avoiding browser restart on each test
+      windowSize: '1200x900', // setting window size
+    },
   },
-  include: {
-    I: './steps_file.js'
+  include: {},
+  bootstrap: null,
+  mocha: {},
+  name: 'your-project-name',
+  plugins: {
+    allure: {
+      enabled: true,
+      outputDir: './output/allure-results', 
+    },
   },
-  name: 'New folder'
-}
+};
