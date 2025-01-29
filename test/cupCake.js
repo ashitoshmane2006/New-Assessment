@@ -15,4 +15,5 @@ Scenario('Generate Cupcake Ipsum', async () => {
     I.click('//button[text()="Generate"]');
     I.waitForElement('//p', 5);
     I.seeNumberOfElements('//p', 2);
-});
+}); 
+
